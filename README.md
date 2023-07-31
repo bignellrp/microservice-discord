@@ -1,6 +1,20 @@
 # Microservice Architecture for Discord
 
-How you can implement a Discord bot using a microservices architecture with a REST API gateway to avoid duplicated responses.
+Here is an example of how you can implement a Discord bot using a microservices architecture with a REST API gateway to avoid duplicated responses.
+
+In this project I have implemented single server bot and web. The problem with this design is it wouldnt scale very well to multiple discord servers with many users.
+
+https://github.com/bignellrp/footyapp
+
+In a separate project I implemented a slash command version running in Lambda but this lacked the functionality of monitoring for user messages and had a slow spin up time when calling the Lambda.
+
+https://github.com/bignellrp/serverless-footyapp
+
+In this project I converted the original footyapp project to run in AWS ECS but without changing the bots architecure it still cannot scale as multiple tasks running this service would reply to user messages multiple times, duplicating messages.
+
+https://github.com/bignellrp/terraform-aws-ecs
+
+This new Microservice Discord project investigates the option of converting to a microservice architecture by splitting the bot into frontend and worker nodes.
 
 In a microservices architecture, different components of the application are split into smaller, independent services that communicate with each other through APIs. In this example, we'll have the following components:
 

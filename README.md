@@ -10,7 +10,14 @@ In a separate project I implemented a slash command version running in Lambda bu
 
 https://github.com/bignellrp/serverless-footyapp
 
-In this project I converted the original footyapp project to run in AWS ECS but without changing the bots architecure it still cannot scale as multiple tasks running this service would reply to user messages multiple times, duplicating messages.
+This could have potentially be improved buy using;
+
+1. Pre Warming: https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html
+2. Provisioned Concurency: https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html
+
+But would still lack monitoring of user messages.
+
+In this project I converted the original footyapp project to run in AWS ECS but without changing the bots architecure it still cannot scale as multiple tasks running this service would reply to user messages multiple times, duplicating messages.  Fine for the web part of the app as this can easily be load balanced with a normal ALB but not so good for the bot.
 
 https://github.com/bignellrp/terraform-aws-ecs
 
@@ -22,6 +29,12 @@ Discord Bot Service: This service handles interactions with the Discord API and 
 Message Processing Service: This service receives messages from the Discord Bot Service and processes them before sending a response back.
 REST API Gateway: This is an entry point for external requests to the microservices.
 To avoid duplicated responses, we'll implement a mechanism to prevent multiple responses for the same message.
+
+Credit to the following sources for the ideas:
+
+1. Nikhil's Microservice GMbot: https://dev.to/itsnikhil/architecting-discord-bot-the-right-way-383e
+2. DasWolke Microservice Bot: https://gist.github.com/DasWolke/c9d7dfe6a78445011162a12abd32091d
+3. ChatGPT for a starter on the code
 
 Here's a basic outline of the architecture and how the flow works:
 
